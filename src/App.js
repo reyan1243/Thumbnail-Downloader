@@ -5,6 +5,7 @@ import { Footer } from './components/Footer';
 import NavBar from './components/NavBar';
 import { About } from './pages/About';
 import { Contacts } from './pages/Contacts';
+import DCMA from './pages/DCMA';
 import { Home } from './pages/Home';
 
 function App() {
@@ -15,15 +16,16 @@ function App() {
   }
 
   return (
-    <div className='App'> 
+    <div> 
       <Router>
       <NavBar isScrolled={isScrolled} />
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='about' element={<About/>}/>
           <Route path='/contact' element={<Contacts/>}/>
+          <Route path='/dcma' element={<DCMA/>}/>
         </Routes>
-        <Footer/>
+        
       </Router>
     </div>
   );

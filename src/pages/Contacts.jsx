@@ -2,8 +2,8 @@ import React from 'react'
 
 export const Contacts = () => {
   return (
-    <div>
-        
+    <div className='text-white'>
+        <p>contacts</p>
     </div>
   )
 }
