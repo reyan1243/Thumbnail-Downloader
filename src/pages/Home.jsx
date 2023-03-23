@@ -1,22 +1,54 @@
 import React from 'react'
 import { useState } from 'react'
+// import axios from 'axios'
 // import styled from 'styled-components'
-import { DownloadSection } from '../components/DownloadSection'
-import { Footer } from '../components/Footer'
+
 
 
 export const Home = () => {
-  const [formValues, setFormValues] = useState({
-    search: ""
-  })
+  const [search, setSearch] = useState("")
+  const [ytimage, setYtimage]= useState(null)
 
-  const handleSignUp = async () => {
-    console.log("form submitted")
-    if(formValues.search!==null){
-      console.log("fetch the image data to download")
+  const extractVideoId = () => {
+    const youtubeRegex =
+      /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/;
+    const idRegex = /v=([^&]+)/;
+    const idRegex2 = /([^&]+)/
+
+    if (!youtubeRegex.test(search)) {
+      console.log("regix not valid")
+
+      return null;
     }
-  }
 
+    if (search.match(idRegex)){
+      const videoId = search.match(idRegex);  
+      if (!videoId || videoId.length < 2) {
+        console.log("id not valid")
+        return null;
+      }
+      console.log(videoId[1])
+      setYtimage(`https://img.youtube.com/vi/${videoId[1]}/mqdefault.jpg`)
+      // console.log(ytimage)
+      return videoId[1];
+    }
+    if (search.match(idRegex2)){
+      const videoId = search.match(idRegex2)
+      if (!videoId || videoId.length < 2) {
+        console.log("id not valid")
+        return null;
+      }
+      console.log(videoId[1])
+      let videoId2 = videoId[1].replace("https://youtu.be/","")
+      setYtimage(`https://img.youtube.com/vi/${videoId2}/mqdefault.jpg`)
+      // console.log(ytimage)
+      return videoId2;
+    }
+
+  };
+
+
+ 
   return ( 
   <div className='w-full text-white'>
       <div className='sm:py-12 py-8'>
@@ -24,12 +56,24 @@ export const Home = () => {
       
       <div className="max-w-[1240px] flex flex-col sm:flex-row items-center justify-center mx-auto px-4">
         
-          <input className='p-3 lg:w-[40rem] md:w-[32rem] sm:w-[28rem] w-[18rem] rounded-md text-black col-span-2 border-none' type="text" name="" id="" placeholder='Paste your URL here'/>
-          <button className='bg-[#00df9a] w-[200px] rounded-md ml-4 my-6 px-6 py-3 text-black font-bold'>Search</button>   
+          <input 
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          className='p-3 lg:w-[40rem] md:w-[32rem] sm:w-[28rem] w-[18rem] rounded-md text-black col-span-2 border-none' 
+          type="text" 
+          name="search" 
+          id="" 
+          placeholder='Copy Paste video URL here'/>
+          
+          <button
+            onClick={extractVideoId}
+          className='bg-[#00df9a] w-[200px] rounded-md ml-4 my-6 px-6 py-3 text-black font-bold'>
+            Search
+          </button>   
         
       </div>  
         <div className='flex justify-center mx-auto max-w-[1240px] sm:mt-4 md:mt-12 '>
-        <DownloadSection/>
+          <DownloadSection ytimage={ytimage}/>
       </div>
     </div>
       <Footer />
@@ -37,55 +81,5 @@ export const Home = () => {
    )
 }
 
-// const Container = styled.div`
-// .hero{
-
-//   .body-text{
-//     position:absolute;
-//     left: 0; 
-//   right: 0; 
-//   margin-left: auto; 
-//   margin-right: auto; 
-//     top: 13rem;
-//     color: white;
-//     font-size: 3.2rem;
-//     font-weight: bold;
-//   }
-//   .form{  
-//     position:relative;
-//     top: 18rem;
-//       display:grid;
-//       width:58%;
-//       margin-left: auto; 
-//   margin-right: auto; 
-//   left: 0; 
-//   right: 0; 
-//   grid-template-columns:${"2fr 1fr"};
-//       input{
-//         color:black;
-//         border:none;
-//         padding:1.2rem;
-//         font-size:1.2rem;
-//         border:1px solid black; 
-//         &:focus{
-//           outline:none;
-//         }
-        
-//       }
-//         button{
-//           padding:0.5rem 1rem;
-//           background-color:#e50914;
-//           border: none;
-
-//           cursor:pointer;
-//           color:white;
-//           font-weight:bolder;
-//           font-size: 1.05rem;
-        
-//       }
-//     }
-
-// }
-// `
 
 

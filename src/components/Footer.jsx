@@ -8,7 +8,7 @@ export const Footer = () => {
     return (
         <>
             <div className='text-white max-w-[1340px] flex justify-center items-center mx-auto bottom-0'>
-            <div className='gap-4 grid sm:grid-cols-2'>
+            <div className='p-2 gap-4 grid sm:grid-cols-2'>
                 <div className='gap-6 flex flex-col mx-auto  items-center'>
                         <h2 className='font-bold md:text-xl sm:text-lg text-sm'>Get connected with us on social networks:</h2>
                     <div className='text-[2.2rem] flex  gap-4'>
